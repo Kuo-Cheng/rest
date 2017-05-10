@@ -1,0 +1,234 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+	font-family:Arial;
+	font-size:16px;
+	line-height:24px;
+}
+input,select,textarea{
+	font-family:Arial;
+	font-size:16px;
+}
+.error{
+	color:#f00
+}
+input.error{
+	background-color:#F99;
+}
+#response_area{
+	position:fixed;
+	width:calc(100% - 690px);
+	height:calc(100% - 25px);
+	left:675px;
+	top:10px;
+	border:solid #333 1px;
+}
+#response_area textarea{
+	width:calc(100% - 20px);
+	height:calc(100% - 50px);
+	border:none;
+	padding:10px;
+}
+.topic{
+	background-color:#6CF;
+	text-align:center;
+	font-size:24px;
+	line-height:30px;
+	font-weight:bold;
+	margin-bottom:5px;
+}
+.resource{
+	background-color:#edfee0;
+	text-align:left;
+	font-size:20px;
+	line-height:20px;
+	font-weight:bold;
+	margin-bottom:5px;
+	border-radius:5px;
+	width:95%;
+}
+#submit_area{
+	width:650px;
+	padding-bottom:200px;
+}
+#api .api{
+	margin-bottom:20px;
+	padding-bottom:5px;
+	border-bottom:solid 1px #c0c0c0;
+	margin-bottom:5px;
+	width:95%;
+}
+#api .api_name{
+/*	background-color:#ccc;*/
+	font-weight:bold;
+	font-family: "calibri";
+	color:#400040;
+}
+.sample > div{
+	padding:3px;
+}
+#player_sample ul,
+#player_sample li{
+	padding:0;
+	margin:0;
+	list-style:none;
+	height:30px;
+	line-height:30px;
+}
+#player_sample ul{
+	padding-top:10px;
+}
+#player_sample li{
+	float:left;
+	border:solid 1px #666;
+	text-align:center;
+	width:33%;
+	cursor:pointer;
+	background-color:#eee;
+}
+#player_sample li:hover,
+#player_sample li.current{
+	background-color:#6F0;
+}
+#player_sample .attr{
+	border:solid 1px #666;
+	border-top:none;
+	padding:10px 5px 5px;
+}
+#player_sample .buttons{
+	padding:10px 0;
+	text-align:center;
+	line-height:30px;
+}
+#player_sample .buttons td{
+	padding:10px 0 0 0;
+	text-align:left;
+}
+#player_sample .buttons td[colspan]{
+	text-align:center;
+}
+#player_sample .buttons th{
+	padding:10px 0 0 0;
+	line-height:30px;
+	text-align:right;
+}
+#player_sample .buttons input{
+	width:100px;
+}
+#player_sample th{
+	text-align:right;
+}
+#player_sample hr{
+	color:#c0c0c0;
+	width:95%;
+}
+#player_sample .playlist{
+	background-color:#ccc;
+	padding:3px 3px 0 3px;
+}
+#player_sample .playlist .item{
+	height:18px;
+	font-size:14px;
+	line-height:18px;
+	margin-bottom:3px;
+}
+#player_sample .playlist .item:hover{
+	outline:solid 2px #099;
+}
+#player_sample .playlist .item > div{
+	float:left;
+	overflow:hidden;
+	white-space:nowrap;
+	background-color:#fff;
+	height:18px;
+}
+#player_sample .playlist .zone{
+	width:100px;
+	padding-left:3px;
+}
+#player_sample .playlist .path{
+	width:300px;
+	padding-left:3px;
+	margin-left:3px;
+}
+#player_sample .playlist .duration{
+	width:40px;
+	text-align:center;
+	margin-left:3px;
+}
+#player_sample .playlist .delete{
+	width:18px;
+	text-align:center;
+	color:#f00;
+	cursor:pointer;
+	font-weight:bold;
+	margin-left:3px;
+}
+#player_sample .playlist .delete:hover{
+	font-size:18px;
+}
+#player_sample .playlist.error{
+	background-color:#F99;
+}
+
+#player_sample [name="select_media"]{
+	width:100%;
+}
+.textbold {
+    font-weight: bold;
+    font-size: 105%;
+    color:#408080;
+}
+
+.sampleButton {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	background-color:#ededed;
+	text-indent:2px;
+	display:inline-block;
+	color:#000000;
+	font-family:arial;
+	font-size:15px;
+	font-style:normal;	
+	line-height:20px;
+	text-align:center;
+	text-shadow:1px 1px 0px #ffffff;
+}
+	
+#player_data{
+	position: absolute;
+  	left: 5px;
+  	width: 500px;
+  	height: 108px;
+  	margin-bottom:10px;
+}
+#select_player,
+#select_player .buttons {
+	line-height:28px;
+}
+#player_sanpshot{
+	width:192px;
+	height:108px;
+  	float: right;
+  	margin: 2px 0px 2px 2px; 
+  	margin-top:25px;
+}
+#player_sanpshot p{
+  	margin: 0px 0px 2px 2px; 
+}
+
+#player_sanpshot input{
+	font-size:12px;
+	border:none;
+	color:red;
+	margin-bottom:2px;
+}
+#sanpshot_area{
+	width:192px;
+	height:108px;
+  	border:solid #333 1px;
+  	float: right;
+  	
+}
+
+

@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>WCM API test</title>
+<link type="text/css" href="index.css" rel="Stylesheet" />
+<script type="text/javascript" src="resources/js/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="resources/js/main.js"></script>
+<script src="resources/js/tidy.js"></script>
+<script src="resources/js/webProxyRest.js"></script>
+<script src="resources/ui/jquery-ui.js"></script>
+
+    
+<link rel="stylesheet" href="resources/css/webProxyRest.css">
+<link rel="stylesheet" href="resources/themes/cupertino/jquery-ui.css">
+
+<!--May be a time issue called by the jquery ui, this css block has to be keep here. And comment couldn't put inside the style block when using IE11.-->  
+<style>
+	.ui-widget { 
+		font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; 
+		font-size: 12px; 
+	}
+</style>
+</head>
+<body>
+
+<div id="response_area">
+	<div class="topic">Response json</div>
+	<textarea id="respArea"></textarea>
+</div>
+<div id="submit_area">
+	<div class="topic">API Unit Test</div>
+    <div id="api">
+    	<div class="resource" >Login</div>
+    	<div  data-name="login"></div>
+    	<div class="resource" >Group</div>
+    	<div  data-name="group" style="display: none;"></div>
+    	<div class="resource" >Playlist</div>
+    	<div  data-name="playlist" style="display: none;"></div>
+    	<div class="resource">Media	</div>
+    	<div  data-name="media" style="display: none;"></div>
+    	<div class="resource" >Urgent Cast</div>
+    	<div  data-name="uc" style="display: none;"></div>
+    	<div class="resource" >SyncData</div>
+    	<div  data-name="syncdata" style="display: none;"></div>
+    	<div class="resource" >Player Status log</div>
+    	<div  data-name="playerstatuslog" style="display: none;"></div>
+    </div>
+    <div class="topic">Server API Sample</div>
+    <div id="publish_sample" class="sample">  	
+    	<div class="textbold">
+    		Publish playlist :<br/>
+            <input type="button" class="sampleButton" value="Get all playlist" data-name="get_playlist" /> 
+            <input type="button" class="sampleButton" value="Get all group list" data-name="get_group" />        
+        </div>
+        <div class="api_url"></div>
+        <div class="publish">
+        	<select data-name="select_playlist"></select> 
+            <select data-name="select_group"></select>
+            <input type="button" style="font-weight: bold;margin-top:10px;margin-bottom:5px" class="sampleButton" value="Publish Default Playlist" data-name="publish"  />
+        </div>
+    </div>
+    <div class="topic">Player API Sample</div>
+    <div id="player_sample" class="sample">
+    <div id="player_data">
+    	<div class="api_url"></div>   	
+    	<div class="base" id = "select_player">
+    		Group  : <input type="button" value="Get all Group list" data-name="get_grouplist" /><br/> 
+            Player : <select  value="" name="playerid" style="width: 40%;">
+            			<option value="0">--      </option>
+            		</select>
+            <input type="button" value="Get zone status" data-name="get_playing_status" />
+            <input type="checkbox" name="StatusExbox" value="Statuscheckbox" data-name="status_ex" /> ext<br/>
+            
+            Wait Response: <input type="text" value="" name="timeout" style="width: 30%;"  />
+        </div> 
+    </div>
+    <div id="player_sanpshot">
+    	<input type="text"  name="hint"   /> 	
+		<img  id="sanpshot_area" src="" />
+	</div> 
+    <div style="clear: both"> </div>
+    
+    <div class="base" id = "thumbnail" style="margin-top:13px;">
+    		<span style="text-decoration:underline;color: green; ">Get Thumbnail :</span>
+    		Media id : <input type="text"  name="media_id" style="width: 20%;"  />
+    		<input type="button" name="get_thumbnail" value="Get Thumbnail" />
+		<!--  <input type="button" name="get_medialist" value="Get Media List" />-->	
+        	
+    </div>
+    <div class="base" id = "snapshot">
+    		<span style="text-decoration:underline;color: green; ">Get Player Snapshot :<br /></span>
+    		Width : <input type="text" value="192" name="snap_width" style="width: 20%;"  />
+    		Height: <input type="text" value="108" name="snap_height" style="width: 20%;"  />
+    		<input type="checkbox" name="cbox" value="freshcheckbox" checked="checked"/> refresh
+        	<input type="button" name="get_snapshot" value="GET" /><br/>
+        	<input type="text"  value="  * Recommand snapshot size 96~240" style="border:none;margin-top:5px;color:red; width:500px"/>
+    </div>
+    
+        <ul>
+        	<li>Single Media</li>
+            <li>Multiple Media</li>
+            <li>Playlist</li>
+        </ul>
+        <div class="attr" data-val="single">
+			<table>
+            	<tr>
+                	<th>Zone Name:</th>
+                    <td><input type="text" value="" name="zonename" /></td>
+                </tr>
+            	<tr>
+                	<th>Media:</th>
+                    <td><input type="button" name="get_list" value="Get Preload Media" /></td>
+                </tr>
+                <tr>
+                	<th>Path:</th>
+                    <td><select name="path_type"><option value="url">URL</option><option value="id">ID</option><option value="name">Name</option></select> 
+                    <input type="text" name="path" style="width:400px" /></td>
+                </tr>
+                <tr>
+                	<th>Duration(s):</th>
+                    <td><input type="text" value="" name="duration" /></td>
+                </tr>
+                <tr class="buttons">
+                    <td colspan="2"><input type="button" name="set" value="Set" /></td>
+                </tr>
+             </table>
+             <hr/>
+             <table>
+                <tr class="buttons">
+                	<th>Control Zone:</th>
+                    <td>
+                    	<input type="text" value="" name="controlzone" style="width:96px" />
+                        <input type="button" name="play" value="Play" />
+                        <input type="button" name="pause" value="Pause" />
+                        <input type="button" name="stop" value="Stop" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="attr" data-val="multiple">
+        	<table>
+            	<tr>
+                	<th>Zone Name:</th>
+                    <td><input type="text" value="" name="zonename" /></td>
+                </tr>
+            	<tr>
+                	<th>Media:</th>
+                    <td><input type="button" name="get_list" value="Get Preload Media" /></td>
+                </tr>
+                <tr>
+                	<th>Path:</th>
+                    <td><select name="path_type"><option value="url">URL</option><option value="id">ID</option><option value="name">Name</option></select> 
+                    <input type="text" name="path" style="width:400px" /></td>
+                </tr>
+                <tr>
+                	<th>Duration(s):</th>
+                    <td><input type="text" value="" name="duration" /></td>
+                </tr>
+                <tr>
+                	<th></th>
+                    <td><input type="button" name="add" value="Add to Playlist" /> <span style="color:#999;">(Add above media to play list.)</span></td>
+                </tr>
+                <tr>
+                	<th valign="top">Playlist:</th>
+                    <td class="playlist"></td>
+                </tr>
+                <tr class="buttons">
+                    <td colspan="2"><input type="button" name="set" value="Set" /></td>
+                </tr>
+                <tr class="buttons">
+                	<th valign="top">Control Zone:</th>
+                    <td>
+                    	<input type="text" value="" name="controlzone" style="width:96px" />
+                        <input type="button" name="play" value="Play" />
+                        <input type="button" name="pause" value="Pause" />
+                        <input type="button" name="stop" value="Stop" /><br />
+                        <input type="button" name="first" value="First Media" />
+                        <input type="button" name="previous" value="Pre Media" />
+                        <input type="button" name="next" value="Next Media" />
+                        <input type="button" name="last" value="Last Media" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="attr" data-val="insert">
+        	<table>
+            	<tr>
+                	<th>Insert Item:</th>
+                    <td>
+                    	<label><input type="radio" name="item" id= "item1" value="2" /> Scene Playlist</label> 
+                        <label><input type="radio" name="item" id= "item3" value="2" /> Combo Playlist</label> 
+                        <label><input type="radio" name="item" id= "item2" value="3" /> Urgent Cast</label>
+                    </td>
+                </tr>
+                <tr>
+                	<th>ID:</th>
+                    <td style =" position: absolute">
+                    	<select name="playlsy_select" style =" position: absolute; width:160px; height:24px"></select>
+       	 				<input type="text" name="id" value=""  placeholder="scene id" style = "position: absolute; width: 140px;height:18px"/>      	 				
+                    </td>
+                </tr>
+                <tr>
+                	<th>Duration(s):</th>
+                    <td><input type="text" value="" name="duration" /></td>
+                </tr>
+                <tr>
+                	<th></th>
+                    <td>
+                    	<input type="button" value="play" name="Play" /> 
+                        <input type="button" value="stop" name="Stop" /> 
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+	<div class="topic">Web API Proxy</div>
+	<div id="OData" style="width:98.5%">
+	
+		<div id="toolbar" class="ui-widget-header ui-corner-all">
+			<table class="form-table" id="proxyMethodUrl" width="100%">
+				<tr valign="top">
+					<td valign="center">
+						<select id="proxyMethod" name="proxyMethod" class="proxyMethod" >			
+							<option>POST</option>
+							<option selected="selected">GET</option>
+							<option>PUT</option>
+							<option>DELETE</option>
+							<option>OPTIONS</option>		
+						</select>
+					</td>
+					<td valign="center">						
+						<div class="vertical-line" style="height: 35px;" ></div>
+					</td>
+					<td valign="center" width="100%">
+						<input type="text" name="oDataURL" id="oDataURL" class="defaultTxtClass" title="" onblur="updateParamsByUrl();" onclick="selectUrl();"
+							   onmouseover="setHighlight(this);" onmouseout="recoverHighlight(this);"	
+							   value="" />	
+					</td>
+					<td valign="center">						
+						<div class="vertical-line" style="height: 35px;" ></div>
+					</td>
+					<td valign="center"><button name="proxySend" id="proxySend" class="proxySend" data-name="northstar" style="vertical-align: middle;">Send</button></td>
+					<td valign="center"><button name="proxyReset" id="proxyReset" class="" onclick="proxyReset();">Reset</button></td>
+					
+				</tr>
+			</table>	
+		</div>
+		
+		<div id="tabs" style="width:100.5%">
+			<ul>
+				<li><a href="#tabs-1">Headers</a></li>
+				<li><a href="#tabs-2">Params</a></li>
+				<li><a href="#tabs-3">Proxy URL</a></li>
+			</ul>
+			<div id="tabs-1">
+				
+				<table class="form-table" id="customFieldsHeaders" width="100%">
+					<tr valign="top">
+						<td valign="center">
+							<button id="headerAcceptBut" name="headerAcceptBut" class="ui-icon ui-icon-circle-check"></button>
+						</td>
+						<td width="50%">
+							<input type="text" id="headerTxtId" class="defaultTxtClass" name="headerKeyTxtName[]" value="" placeholder="Header" onblur="removeTxtFocusStyle(this);"
+								   onclick="checkHeaderRowTxt(this,'headerKeyTxtName[]');" onmouseover="setHighlight(this);" onmouseout="recoverHighlight(this);"/>
+						</td>
+						<td width="50%">
+							<input type="text" id="headerTxtValue" class="defaultTxtClass" name="headerValueTxtName[]" value="" placeholder="Value" 
+								   onclick="checkHeaderRowTxt(this,'headerValueTxtName[]');" onblur="removeTxtFocusStyle(this);"
+								   onmouseover="setHighlight(this);" onmouseout="recoverHighlight(this);"/>
+						</td>
+						<td valign="center">
+							<button id="headerMinusBut" name="headerMinusBut" class="ui-icon ui-icon-circle-minus" onclick="removeHeader(this)" ></button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="tabs-2">
+				<table class="form-table" id="customFieldsParams" width="100%">
+					<tr valign="top">
+						<td valign="center">
+							<button id="paramAcceptBut" name="paramAcceptBut" class="ui-icon ui-icon-circle-check"></button>
+						</td>
+						<td width="50%">
+							<input type="text" id="paramKeyTxtId" class="defaultTxtClass" name="paramKeyTxtName[]" value="" placeholder="Param Key" onblur="updateUrl(this);" 
+							       onmouseover="setHighlight(this);" onmouseout="recoverHighlight(this);"
+                                   onclick="checkParamRowTxt(this, 'paramKeyTxtName[]');" />
+						</td>
+						<td width="50%">
+							<input type="text" class="defaultTxtClass" name="paramValueTxtName[]" value="" placeholder="Param Value" onblur="updateUrl(this);" 
+								    onmouseover="setHighlight(this);" onmouseout="recoverHighlight(this);"
+                                   onclick="checkParamRowTxt(this, 'paramValueTxtName[]');" />
+						</td>
+						<td valign="center">
+							<button id="paramMinusBut" name="paramMinusBut" class="ui-icon ui-icon-circle-minus" onclick="removeParam(this)" ></button>
+							<!--a href="javascript:void(0);" id="addParam">Add</a-->
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="tabs-3">
+				<input type="text" value="" name="proxyURL" id="proxyUrl" class="defaultTxtClass" onmouseover="setHighlight(this);" onmouseout="recoverHighlight(this);"
+					   onfocus="setTxtFocusStyle(this);" onblur="removeTxtFocusStyle(this);"	
+					   title="The default test Web Proxy url." />
+			</div>
+		</div><!--End of the tab-->
+        
+        <br/>
+	
+        <!--div align="center">
+            <button name="proxyContentPage" id="proxyContentPage" class="" onclick="">Proxy Content Page</button>
+        </div-->	
+		
+		<div style="display:none;">
+			<form name="contForm" action="" method="post" target="_blank">
+				<div id="formDiv">					
+					<input type="text" name="url" />
+					<input type="text" name="type" />
+				</div>
+			</form>
+		</div>
+	</div><!--End of the oData test area-->
+	
+</div>
+</body>
+</html>
